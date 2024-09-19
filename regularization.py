@@ -7,10 +7,10 @@ from sklearn.metrics import mean_squared_error #type:ignore
 
 if __name__ == "__main__":
     dataset = pd.read_csv('./data/whr2017.csv')
-    X = dataset.drop(['score'], axis=1)
-    Y = dataset['score']
+    X = dataset[['gdp', 'family', 'lifexp', 'freedom', 'corruption', 'generosity', 'dystopia']]
+    Y = dataset[['score']]
     
-    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.25, random_state=42, stratify=False)
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.25, random_state=42)
     
     model_linear = LinearRegression().fit(X_train, y_train)
     y_predict_linear = model_linear.predict(X_test)
@@ -25,8 +25,14 @@ if __name__ == "__main__":
     ridge_score = mean_squared_error(y_test, y_predict_ridge)
     
     print("-"*25)
+    print("Columns")
+    print(X.columns.tolist())
+    print("-"*25)
     print(f"Linear Score {linear_score:.4f}")
+    print(model_linear.coef_)
     print("-"*25)
     print(f"Lasso Score {lasso_score:.4f}")
+    print(model_lasso.coef_)
     print("-"*25)
     print(f"Ridge Score {ridge_score:.4f}")
+    print(model_ridge.coef_)
