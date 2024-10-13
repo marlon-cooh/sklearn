@@ -1,5 +1,4 @@
 import pandas as pd
-import pandasql as ps #type:ignore
 import joblib #type:ignore
 
 class Utils:
@@ -16,4 +15,5 @@ class Utils:
         return X, y
     
     def model_export(self, clf, score):
+        print(score)
         joblib.dump(clf, './models/best_model.pkl')
