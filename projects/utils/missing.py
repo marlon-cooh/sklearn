@@ -4,7 +4,7 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
-# import upsetplot
+import upsetplot
 
 try:
     del pd.DataFrame.missing
@@ -208,16 +208,16 @@ class MissingMethods:
         plt.margins(0)
         plt.tight_layout(pad=0)
 
-    # def missing_upsetplot(self, variables: list[str] = None, **kwargs):
+    def missing_upsetplot(self, variables: list[str] = None, **kwargs):
 
-    #     if variables is None:
-    #         variables = self._obj.columns.tolist()
+        if variables is None:
+            variables = self._obj.columns.tolist()
 
-    #     return (
-    #         self._obj.isna()
-    #         .value_counts(variables)
-    #         .pipe(lambda df: upsetplot.plot(df, **kwargs))
-    #     )
+        return (
+            self._obj.isna()
+            .value_counts(variables)
+            .pipe(lambda df: upsetplot.plot(df, **kwargs))
+        )
         
     def column_fill_with_dummies(column: pd.Series, proportion_below: float=0.10, jitter: float=0.075, seed: int=42) -> pd.Series:
 
